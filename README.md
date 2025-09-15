@@ -34,7 +34,7 @@ cd OpticienPro_app
 
 ### 2. Install dependencies
 
-From the root folder:
+From the root folder it include the backend dependencies:
 
 ```bash
 npm install
@@ -47,15 +47,6 @@ cd frontend
 npm install
 ```
 
-Install backend dependencies:
-
-```bash
-cd ../backend
-npm install
-```
-
----
-
 ### 3. Development Run
 
 Start frontend (React + Vite):
@@ -65,18 +56,11 @@ cd frontend
 npm run dev
 ```
 
-Start backend (Express + SQLite):
-
-```bash
-cd ../backend
-node server.js
-```
-
 Start Electron app:
 
 ```bash
 cd ..
-npm run electron:dev
+npm run dev
 ```
 
 ---
@@ -120,7 +104,6 @@ optique-pro-app/
 │── main.js           # Electron entry
 │── preload.js        # Electron preload
 │── package.json
-│── vite.config.ts    # Frontend config
 │── .gitignore
 │── README.md
 ```
@@ -152,4 +135,4 @@ cd frontend && npm run build
 
 ## 📜 License
 
-MIT License © 2025 Your Name
+MIT License © 2025 Ibrahim Zaryouh
