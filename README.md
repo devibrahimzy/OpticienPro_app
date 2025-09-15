@@ -34,7 +34,7 @@ cd OpticienPro_app
 
 ### 2. Install dependencies
 
-From the root folder it include the backend dependencies:
+From the root folder ( it will include the backend dependencies also):
 
 ```bash
 npm install
@@ -49,14 +49,7 @@ npm install
 
 ### 3. Development Run
 
-Start frontend (React + Vite):
-
-```bash
-cd frontend
-npm run dev
-```
-
-Start Electron app:
+Start Electron app(it will start frontend and backend):
 
 ```bash
 cd ..
