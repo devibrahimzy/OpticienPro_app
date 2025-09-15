@@ -1,0 +1,68 @@
+{
+  "name": "optique-app",
+  "version": "1.0.0",
+  "description": "Optique Management Application",
+  "author": "ibrahim",
+  "main": "main.js",
+  "scripts": {
+    "dev:frontend": "cd frontend && npm run dev",
+    "build:frontend": "cd frontend && npm run build",
+    "dev:backend": "node backend/server.js",
+    "dev:electron": "wait-on http://localhost:5173 && electron .",
+    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\" \"npm run dev:electron\"",
+    "dist": "npm run build:frontend && electron-builder",
+    "postinstall": "electron-builder install-app-deps"
+  },
+  "build": {
+    "appId": "com.optique.app",
+    "productName": "OptiqueApp",
+    "directories": {
+      "output": "dist"
+    },
+    "asarUnpack": [
+      "backend/**"
+    ],
+    "files": [
+      "main.js",
+      "preload.js",
+      "frontend/dist/**/*",
+      "backend/**/*",
+      "package.json",
+      "node_modules/**/*"
+    ],
+    "extraResources": [
+      {
+        "from": "node_modules",
+        "to": "node_modules"
+      },
+      {
+        "from": "backend/app.db",
+        "to": "backend/app.db"
+      }
+    ],
+    "win": {
+      "target": "nsis",
+      "icon": "icon.ico"
+    },
+    "linux": {
+      "target": "AppImage"
+    },
+    "mac": {
+      "target": "dmg"
+    }
+  },
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "better-sqlite3": "^12.2.0",
+    "body-parser": "^2.2.0",
+    "cors": "^2.8.5",
+    "express": "^5.1.0"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1",
+    "electron": "^38.1.0",
+    "electron-builder": "^26.0.12",
+    "electron-rebuild": "^3.2.9",
+    "wait-on": "^8.0.4"
+  }
+}
