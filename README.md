@@ -34,7 +34,7 @@ cd OpticienPro_app
 
 ### 2. Install dependencies
 
-From the root folder it include the backend dependencies:
+From the root folder ( it will include the backend dependencies also):
 
 ```bash
 npm install
