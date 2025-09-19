@@ -42,7 +42,7 @@ CREATE TABLE IF NOT EXISTS fournisseurs (
 -- montures (Frames) - removed fournisseur_id
 CREATE TABLE IF NOT EXISTS montures (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
-  ref TEXT NOT NULL UNIQUE,
+  ref TEXT NOT NULL,
   marque TEXT,
   matiere TEXT,
   couleur TEXT,
@@ -54,7 +54,7 @@ CREATE TABLE IF NOT EXISTS montures (
 -- verres (Lenses) - removed fournisseur_id
 CREATE TABLE IF NOT EXISTS verres (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
-  ref TEXT NOT NULL UNIQUE,
+  ref TEXT NOT NULL,
   type_verre TEXT, -- e.g., 'vision simple', 'progressif'
   indice REAL,     -- e.g., 1.5, 1.67
   diametre INTEGER,
@@ -67,7 +67,7 @@ CREATE TABLE IF NOT EXISTS verres (
 -- mutuelles (Insurance)
 CREATE TABLE IF NOT EXISTS mutuelles (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
-  nom TEXT NOT NULL UNIQUE,
+  nom TEXT NOT NULL,
   couverture_type TEXT DEFAULT '%', -- '%' or 'MAD'
   couverture_valeur REAL DEFAULT 0,
   plafond REAL DEFAULT 0,

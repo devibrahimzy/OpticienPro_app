@@ -104,20 +104,30 @@ export const VenteForm: React.FC<VenteFormProps> = ({
     }
     
     if (field === "produit_id") {
-      const produits = [...montures, ...verres];
+      // CORRECTION: Utiliser la liste de produits appropriée selon le type
+      const produits = newLignes[index].produit_type === "monture" ? montures : verres;
       const produit = produits.find(p => p.id === value);
+      
       if (produit) {
+        // CORRECTION: Vérifier que le prix est correctement extrait
         newLignes[index].pu_ht = produit.prix_vente;
         newLignes[index].total_ligne = calculateLigneTotal(newLignes[index]);
         
         if (newLignes[index].qte > (produit.stock || 0)) {
           onToast(
             "Stock insuffisant",
-            `Stock insuffisant pour ${produit.ref}. Disponible: ${produit.stock}`,
+            `Stock insuffisant pour ${produit.nom || produit.ref}. Disponible: ${produit.stock}`,
             "destructive"
           );
         }
       }
+    }
+    
+    // CORRECTION: Si le type de produit change, réinitialiser l'ID du produit et le prix
+    if (field === "produit_type") {
+      newLignes[index].produit_id = 0;
+      newLignes[index].pu_ht = 0;
+      newLignes[index].total_ligne = 0;
     }
     
     setLignesTemp(newLignes);
@@ -224,7 +234,7 @@ export const VenteForm: React.FC<VenteFormProps> = ({
               
               return (
                 <Card key={index} className="p-4">
-                  <div className="grid grid-cols-6 gap-4 items-end">
+                  <div className="grid grid-cols-7 gap-4 items-end">
                     <div>
                       <label className="text-sm font-medium">Type</label>
                       <Select
@@ -304,6 +314,17 @@ export const VenteForm: React.FC<VenteFormProps> = ({
                         max="100"
                         value={ligne.remise}
                         onChange={(e) => updateLigne(index, 'remise', parseFloat(e.target.value) || 0)}
+                      />
+                    </div>
+
+                    <div>
+                      <label className="text-sm font-medium">TVA (%)</label>
+                      <Input
+                        type="number"
+                        min="0"
+                        max="100"
+                        value={ligne.tva}
+                        onChange={(e) => updateLigne(index, 'tva', parseFloat(e.target.value) || 0)}
                       />
                     </div>
 

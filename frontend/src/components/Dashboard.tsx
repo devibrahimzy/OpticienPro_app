@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Users,
@@ -7,7 +7,6 @@ import {
   TrendingUp,
   Eye,
   UserCheck,
-  Package2,
   LogOut,
   Home,
   Settings,
@@ -25,7 +24,7 @@ import { FacturesModule } from "./modules/FacturesModule";
 import { RapportsModule } from "./modules/RapportsModule";
 import DashboardModule from "./modules/DashboardModule";
 import { ParametresModule } from "./modules/ParametresModule";
-import UsersModule from "./modules/UsersModule"; // ✅ new module
+import UsersModule from "./modules/UsersModule";
 
 interface DashboardProps {
   user: { id: number; username: string; role: string };
@@ -34,28 +33,41 @@ interface DashboardProps {
 
 export const Dashboard = ({ user, onLogout }: DashboardProps) => {
   const [activeModule, setActiveModule] = useState("dashboard");
+  const [windowHeight, setWindowHeight] = useState(window.innerHeight);
+
+  // Update window height on resize (important for Electron)
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowHeight(window.innerHeight);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const modules = [
-  { id: "dashboard", name: "Tableau de bord", icon: Home },
-  ...(user.role === "admin"
-    ? [{ id: "users", name: "Utilisateurs", icon: UserCheck }]
-    : []), // ✅ only admins see this, right after dashboard
-  { id: "clients", name: "Clients", icon: Users },
-  { id: "produits", name: "Produits", icon: Package },
-  { id: "fournisseurs", name: "Fournisseurs", icon: Truck },
-  { id: "ventes", name: "Ventes", icon: ShoppingCart },
-  { id: "mutuelles", name: "Mutuelles", icon: CreditCard },
-  { id: "factures", name: "Facturation", icon: FileText },
-  { id: "rapports", name: "Rapports", icon: TrendingUp },
-  { id: "parametres", name: "Paramètres", icon: Settings },
-];
-
+    { id: "dashboard", name: "Tableau de bord", icon: Home },
+    ...(user.role === "admin"
+      ? [{ id: "users", name: "Utilisateurs", icon: UserCheck }]
+      : []),
+    { id: "clients", name: "Clients", icon: Users },
+    { id: "produits", name: "Produits", icon: Package },
+    { id: "fournisseurs", name: "Fournisseurs", icon: Truck },
+    { id: "ventes", name: "Ventes", icon: ShoppingCart },
+    { id: "mutuelles", name: "Mutuelles", icon: CreditCard },
+    { id: "factures", name: "Facturation", icon: FileText },
+    { id: "rapports", name: "Rapports", icon: TrendingUp },
+    { id: "parametres", name: "Paramètres", icon: Settings },
+  ];
 
   return (
-    <div className="min-h-screen bg-background flex">
-      {/* Sidebar */}
-      <div className="w-64 bg-gradient-sidebar border-r border-sidebar-border flex flex-col justify-between sticky top-0 h-screen">
-        <div className="p-6">
+    <div className="bg-background flex" style={{ height: windowHeight }}>
+      {/* Sidebar - Fixed for Electron */}
+      <div 
+        className="w-64 bg-gradient-sidebar border-r border-sidebar-border flex flex-col flex-shrink-0"
+        style={{ height: windowHeight }}
+      >
+        <div className="flex-1 overflow-y-auto p-6">
           {/* Logo */}
           <div className="flex items-center gap-3 mb-8">
             <div className="w-10 h-10 bg-primary dark:bg-amber-700 rounded-lg flex items-center justify-center">
@@ -91,7 +103,7 @@ export const Dashboard = ({ user, onLogout }: DashboardProps) => {
         </div>
 
         {/* User Info + Logout */}
-        <div className="w-full px-6 mb-6">
+        <div className="w-full px-6 pb-6 pt-4 border-t border-sidebar-border/20">
           <div className="bg-sidebar-accent/50 rounded-lg p-4 mb-4">
             <div className="flex items-center gap-3">
               <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
@@ -115,7 +127,7 @@ export const Dashboard = ({ user, onLogout }: DashboardProps) => {
       </div>
 
       {/* Main Content */}
-      <div className="flex-1 p-6 overflow-y-auto">
+      <div className="flex-1 overflow-y-auto p-6">
         <div className="max-w-7xl mx-auto">
           {activeModule === "dashboard" && (
             <DashboardModule

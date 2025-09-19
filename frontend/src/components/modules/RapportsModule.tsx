@@ -144,12 +144,7 @@ export const RapportsModule = ({ userId, username, role }) => {
           <p className="text-muted-foreground">Analysez les performances de votre magasin</p>
           <p className="text-sm text-muted-foreground">Utilisateur: {username} ({role})</p>
         </div>
-        
-        <Button onClick={exportToPDF} className="bg-primary hover:bg-primary/90">
-          <Download className="h-4 w-4 mr-2" />
-          Exporter PDF
-        </Button>
-      </div>
+              </div>
 
       {/* Filters */}
       <Card className="bg-gradient-card shadow-md border-0">

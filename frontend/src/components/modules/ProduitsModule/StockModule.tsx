@@ -202,7 +202,7 @@ export const StockModule = ({
                       </div>
                     </TableCell>
                     <TableCell>{demand.quantite}</TableCell>
-                    <TableCell>€{demand.prix_unitaire.toFixed(2)}</TableCell>
+                    <TableCell>{demand.prix_unitaire.toFixed(2)} MAD</TableCell>
                     <TableCell>
                       <div className="text-sm">{getFournisseurName(demand.fournisseur_id)}</div>
                     </TableCell>
