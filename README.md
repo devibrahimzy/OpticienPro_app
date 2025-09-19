@@ -56,7 +56,7 @@ cd ..
 npm run dev
 ```
 
----
+
 
 if you want just backend :
 
@@ -65,7 +65,7 @@ cd ..
 npm run dev:backend
 ```
 
----
+
 
 if you want just frontend :
 
@@ -74,7 +74,7 @@ cd ..
 npm run dev:frontend
 ```
 
----
+
 
 
 ### 🏗 Build Production App
