@@ -91,12 +91,6 @@ export const ClientPurchaseHistory = ({ client }: ClientPurchaseHistoryProps) =>
     setExpandedSales(new Set()); // Reset expanded state
   };
 
-  const formatCurrency = (amount: number) => {
-    return new Intl.NumberFormat("fr-FR", {
-      style: "currency",
-      currency: "EUR",
-    }).format(amount || 0);
-  };
 
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString("fr-FR", {
@@ -170,16 +164,16 @@ export const ClientPurchaseHistory = ({ client }: ClientPurchaseHistoryProps) =>
                     {/* Totals */}
                     <div className="text-right space-y-1">
                       <div className="text-lg font-bold text-emerald-700">
-                        {formatCurrency(sale.total_ttc)}
+                        {sale.total_ttc} MAD
                       </div>
                       <div className="text-sm text-muted-foreground">
                         <span className="font-medium">Client:</span>{" "}
-                        {formatCurrency(sale.total_client)}
+                        {sale.total_client} MAD
                       </div>
                       {sale.mutuelle && (
                         <div className="text-sm text-muted-foreground">
                           <span className="font-medium">Mutuelle:</span>{" "}
-                          {formatCurrency(sale.total_mutuelle)}
+                          {sale.total_mutuelle} MAD
                         </div>
                       )}
                     </div>
@@ -218,19 +212,19 @@ export const ClientPurchaseHistory = ({ client }: ClientPurchaseHistoryProps) =>
                             <span className="font-medium ml-2">
                               {sale.mutuelle.couverture_type === "%"
                                 ? `${sale.mutuelle.couverture_valeur}%`
-                                : formatCurrency(sale.mutuelle.couverture_valeur)}
+                                : `${sale.mutuelle.couverture_valeur} MAD`}
                             </span>
                           </div>
                           <div>
                             <span className="text-muted-foreground">Plafond:</span>
                             <span className="font-medium ml-2">
-                              {formatCurrency(sale.mutuelle.plafond)}
+                              {sale.mutuelle.plafond} MAD
                             </span>
                           </div>
                           <div>
                             <span className="text-muted-foreground">Montant pris en charge:</span>
                             <span className="font-medium ml-2">
-                              {formatCurrency(sale.total_mutuelle)}
+                              {sale.total_mutuelle} MAD
                             </span>
                           </div>
                         </div>
@@ -276,12 +270,12 @@ export const ClientPurchaseHistory = ({ client }: ClientPurchaseHistoryProps) =>
                                 </div>
                               </TableCell>
                               <TableCell>{ligne.qte}</TableCell>
-                              <TableCell>{formatCurrency(ligne.pu_ht)}</TableCell>
+                              <TableCell>{ligne.pu_ht} MAD</TableCell>
                               <TableCell>
                                 {ligne.remise > 0 ? `${ligne.remise}%` : "-"}
                               </TableCell>
                               <TableCell className="text-right font-medium">
-                                {formatCurrency(ligne.total_ligne)}
+                                {ligne.total_ligne} MAD
                               </TableCell>
                             </TableRow>
                           ))}
@@ -294,10 +288,10 @@ export const ClientPurchaseHistory = ({ client }: ClientPurchaseHistoryProps) =>
                         {sale.lignes.length} article{sale.lignes.length > 1 ? "s" : ""}
                       </div>
                       <div className="text-right">
-                        <div className="font-bold text-lg">{formatCurrency(sale.total_ttc)}</div>
+                        <div className="font-bold text-lg">{sale.total_ttc} MAD</div>
                         {sale.mutuelle && (
                           <div className="text-sm text-muted-foreground">
-                            Dont mutuelle: {formatCurrency(sale.total_mutuelle)}
+                            Dont mutuelle: {sale.total_mutuelle} MAD
                           </div>
                         )}
                       </div>
