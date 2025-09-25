@@ -7,7 +7,7 @@ Built with **Electron**, **React (Vite)**, and **SQLite (better-sqlite3 / bcrypt
 
 ## 🚀 Features
 
-- Cross-platform desktop app (Windows, macOS, Linux)
+
 - Secure authentication (bcrypt password hashing)
 - Local SQLite database (fast + portable)
 - Electron backend with Express API
@@ -47,7 +47,18 @@ cd frontend
 npm install
 ```
 
+
+Rebuild better-sqlite3 for Electron
+
+```bash
+npx electron-rebuild
+
+If rebuild succeeds, you should see:
+
+✔ Rebuild Complete
+```
 ### 3. Development Run
+
 
 Start Electron app(it will start frontend and backend):
 
